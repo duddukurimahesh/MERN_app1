@@ -10,7 +10,6 @@ module.exports =  function(req, res, next) {
         };
 
         let decodeTokenData = jwt.verify(authToken, "freelancerJWTsecKey");
-        console.log("decodeTokenData------", decodeTokenData);
         req.user = decodeTokenData.user;
         next();
 
