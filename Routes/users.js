@@ -70,7 +70,7 @@ module.exports =  (app) => {
     });
 
     // get users profile API
-    app.get('/userssList', authMiddleware, async (req, res) => {
+    app.get('/usersList', authMiddleware, async (req, res) => {
 
         try {
             let userssList = await users.find();
@@ -143,4 +143,20 @@ module.exports =  (app) => {
             return res.status(500).send("Internal server error.");
         }
     });
+
+    // Get Review for particular freelancer based on freelancer email.
+    app.get('/freelancerReviews', authMiddleware, async(req, res)=>{
+
+        try{
+            console.log("-----freelancerReviews------ aparams data is :------", req.query);
+            const email =  req.query.email;
+            let freelancerReviews = await reviews.find({freelancer: email});
+            return res.status(200).send(freelancerReviews);
+        }
+        catch(err){
+            console.log("At freelancerReviews error is: ", err);
+            return res.status(500).send("Internal server error.");
+        }
+
+    })
 };
